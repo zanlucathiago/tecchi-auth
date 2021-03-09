@@ -23,19 +23,17 @@ app.use(bodyParser.json());
 
 // DB Config
 // const db = `${MONGO_URI}/${MONGO_DB_NAME}`;
-
+const URIS =
+  process.env.URIS ||
+  'mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false';
 // Connect to Mongo
 mongoose
   // .connect(db, {
-  .connect(
-    process.env.URIS,
-    // 'mongodb+srv://thiago:Mkbm@@1401@authenticator.tfkpv.mongodb.net/auth?retryWrites=true&w=majority',
-    {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useUnifiedTopology: true,
-    }
-  ) // Adding new mongo url parser
+  .connect(URIS, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+  }) // Adding new mongo url parser
   .then(() => console.log('MongoDB Connected...'))
   .catch((err) => console.log(err));
 
