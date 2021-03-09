@@ -1,0 +1,21 @@
+POST http://192.168.10.104:5001/api/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "firstName": "Joacida",
+  "lastName": "Padilha",
+  "email": "jopadilha63@gmail.com",
+  "password": "legal"
+}
+
+###
+
+POST http://192.168.10.104:5001/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "jopadilha63@gmail.com",
+  "password": "legal"
+}
+
+###
