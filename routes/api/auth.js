@@ -32,7 +32,7 @@ router.post('/login', async (req, res, next) => {
       throw Error('Senha inválida.');
     }
 
-    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: 3600 });
+    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '12h' });
 
     if (!token) {
       throw Error('Erro na geração do token.');
