@@ -19,6 +19,11 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  tenant: {
+    enum: ['guapos-agencia', 'recado-do-ceu'],
+    type: String,
+    required: true,
+  },
 });
 
 const User = model('user', UserSchema);

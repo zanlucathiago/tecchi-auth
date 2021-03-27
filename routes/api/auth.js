@@ -4,7 +4,8 @@ const jwt = require('jsonwebtoken');
 const auth = require('../../middleware/auth');
 const User = require('../../models/User');
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET =
+  process.env.JWT_SECRET || 'ba945695-f486-44f4-a79a-cb03c7f4ecba';
 const router = Router();
 
 /**
@@ -32,7 +33,9 @@ router.post('/login', async (req, res, next) => {
       throw Error('Senha inválida.');
     }
 
-    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '12h' });
+    const token = jwt.sign({ id: user._id, tenant: user.tenant }, JWT_SECRET, {
+      expiresIn: '12h',
+    });
 
     if (!token) {
       throw Error('Erro na geração do token.');
@@ -51,9 +54,9 @@ router.post('/login', async (req, res, next) => {
  */
 router.post('/register', async (req, res) => {
   try {
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password, tenant } = req.body;
 
-    if (!firstName || !lastName || !email || !password) {
+    if (!firstName || !lastName || !email || !password || !tenant) {
       return res.status(400).json({ msg: 'Please enter all fields' });
     }
 
@@ -80,6 +83,7 @@ router.post('/register', async (req, res) => {
       lastName,
       email,
       password: hash,
+      tenant,
     });
 
     const savedUser = await newUser.save();
