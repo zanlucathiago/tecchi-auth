@@ -20,7 +20,7 @@ const UserSchema = new Schema({
     required: true,
   },
   tenant: {
-    enum: ['guapos-agencia', 'recado-do-ceu'],
+    enum: ['guapos-agencia', 'public', 'recado-do-ceu'],
     type: String,
     required: true,
   },
